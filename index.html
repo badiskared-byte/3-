@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>3AS TR</title>
+
+<style>
+body{
+margin:0;
+background:black;
+font-family:Arial;
+direction:rtl;
+overflow:hidden;
+color:white;
+}
+
+#lamp{
+position:fixed;
+left:50px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+z-index:10;
+}
+
+#bulb{
+width:70px;
+height:70px;
+border-radius:50%;
+background:#222;
+box-shadow:0 0 15px #000;
+transition:0.3s;
+}
+
+.on #bulb{
+background:#fff;
+box-shadow:0 0 80px #fff;
+}
+
+#lampText{
+position:fixed;
+top:60%;
+left:40px;
+color:#888;
+font-size:14px;
+z-index:10;
+}
+
+.page{
+display:none;
+width:100%;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+animation:fade 0.5s ease;
+}
+
+.active{
+display:flex;
+}
+
+@keyframes fade{
+from{opacity:0; transform:scale(0.95);} 
+to{opacity:1; transform:scale(1);} 
+}
+
+button{
+padding:10px 20px;
+margin:8px;
+border:none;
+border-radius:8px;
+background:#333;
+color:white;
+cursor:pointer;
+}
+
+button:hover{background:#555;}
+
+input{
+padding:10px;
+margin:5px;
+border:none;
+border-radius:6px;
+background:#111;
+color:white;
+}
+
+#loginBox{
+display:none;
+flex-direction:column;
+text-align:center;
+}
+
+.popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+justify-content:center;
+align-items:center;
+}
+
+.popup-content{
+background:#222;
+padding:20px;
+border-radius:10px;
+}
+
+.teacher-list{
+background:#111;
+padding:20px;
+border-radius:10px;
+width:80%;
+max-width:500px;
+}
+
+.teacher{
+padding:10px;
+border-bottom:1px solid #333;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div id="lamp" onclick="toggleLight()">
+<div id="bulb"></div>
+</div>
+<div id="lampText">💡 اضغط على المصباح لتشغيل الضوء</div>
+
+<!-- LOGIN -->
+<div id="login" class="page">
+<div id="loginBox">
+<h2>مرحبا بكم في قسم 3 تقني رياضي 🔥</h2>
+<input placeholder="اسمك">
+<input id="pass" type="password" placeholder="كلمة السر">
+<button onclick="enter()">دخول</button>
+<p id="error"></p>
+</div>
+</div>
+
+<!-- CHOICE -->
+<div id="choice" class="page">
+<h2>👀 اختار الدخول</h2>
+<button onclick="go('site')">👨‍🎓 التلاميذ</button>
+<button onclick="go('profs')">👨‍🏫 الأساتذة</button>
+</div>
+
+<!-- STUDENTS -->
+<div id="site" class="page">
+<h2>القسم 🔥</h2>
+
+<button onclick="showNote('اسكندر','يعرف بالبوكسار تاع القسم 🥊 | ارتيتست 🎨 | وجهو مقسدر  | كي تريح معاه شوي تلقا دبزة جاتك من حيث لاتدري 😏')">اسكندر</button>
+<button onclick="showNote('رؤوف','الناسملاح تاع القسم ⚡ | فري حبة وحدة +ما يخالطش + كان كي يغيب تتمركا في لكتاب تاع التاريخ 😂')">رؤوف</button>
+<button onclick="showNote('ادم','امام القسم 🕌 | فري يحب السرباح | متحول سعات اما سعات كلوشار')">ادم</button>
+
+</div>
+
+<!-- TEACHERS -->
+<div id="profs" class="page">
+<h2>👨‍🏫 الأساتذة</h2>
+
+<div class="teacher-list">
+<div class="teacher" onclick="showNote('بومصران يوسف','ملاحظة: أستاذ كاره لحياة ختم بينا مسيرته الدراسية 💪')">بومصران يوسف</div>
+<div class="teacher" onclick="showNote('شعلان عبد الرزاق','ملاحظة: شيخ ولا اروع + يقصف بالحنانة و بدون مبالات ⚡')">شعلان عبد الرزاق</div>
+<div class="teacher" onclick="showNote('جرو حسام الدين','ملاحظة: كهربائية صعيبة ⚡')">جرو حسام الدين (ه كهربائية)</div>
+<div class="teacher" onclick="showNote('طبال محي الدين','ملاحظة: طرائق لازم تركيز 📚')">طبال محي الدين (ه طرائق)</div>
+<div class="teacher" onclick="showNote('ماط صورية','ملاحظة: أستاذة هادئة 🌸')">ماط صورية</div>
+<div class="teacher" onclick="showNote('حمزاوي نجيب','ملاحظة: يحب النظام 📏')">حمزاوي نجيب</div>
+<div class="teacher" onclick="showNote('قاسم مسعود','ملاحظة: خفيف الدم 😄')">قاسم مسعود</div>
+<div class="teacher" onclick="showNote('شعلان مريم','ملاحظة: تشرح مليح 👍')">شعلان مريم</div>
+<div class="teacher" onclick="showNote('طقيق رقية','ملاحظة: دقيقة ⏱')">طقيق رقية</div>
+<div class="teacher" onclick="showNote('بوطغان الشريف','ملاحظة: يحب الصرامة 📌')">بوطغان الشريف</div>
+<div class="teacher" onclick="showNote('بولحية عبد العزيز','ملاحظة: محترف 👨‍🏫')">بولحية عبد العزيز</div>
+</div>
+
+<button onclick="go('choice')">⬅ رجوع</button>
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup" onclick="this.style.display='none'">
+<div class="popup-content">
+<h3 id="popTitle"></h3>
+<p id="popText"></p>
+</div>
+</div>
+
+<script>
+let light=false;
+
+function toggleLight(){
+light=!light;
+document.body.classList.toggle('on');
+
+if(light){
+    document.getElementById('login').classList.add('active');
+    document.getElementById('loginBox').style.display='flex';
+    document.getElementById('lampText').style.display='none';
+}else{
+    document.getElementById('login').classList.remove('active');
+    document.getElementById('loginBox').style.display='none';
+    document.getElementById('lampText').style.display='block';
+}
+}
+
+function enter(){
+if(document.getElementById('pass').value==='1234'){
+    go('choice');
+}else{
+    document.getElementById('error').innerText='❌ كلمة السر خاطئة';
+}
+}
+
+function go(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+function showNote(name,text){
+document.getElementById('popTitle').innerText=name;
+document.getElementById('popText').innerText=text;
+document.getElementById('popup').style.display='flex';
+}
+</script>
+
+</body>
+</html>
